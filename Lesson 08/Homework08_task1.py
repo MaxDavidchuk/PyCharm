@@ -18,6 +18,7 @@ def print_set(s: set) -> None:
         print(f'{k}. {fio}', end=' ')
     print()
 
+
 if __name__ == '__main__':
     pens1 = set(read_data('task1_1.txt').split())
     pens2 = set(read_data('task1_2.txt').split())
