@@ -1,0 +1,52 @@
+﻿{
+  "Західна Європа": [
+    {"country": "Нідерланди", "capital": "Амстердам"},
+    {"country": "Німеччина", "capital": "Берлін"},
+    {"country": "Швейцарія", "capital": "Берн"},
+    {"country": "Бельгія", "capital": "Брюссель"},
+    {"country": "Ліхтенштейн", "capital": "Вадуц"},
+    {"country": "Австрія", "capital": "Відень"},
+    {"country": "Люксембург", "capital": "Люксембург"},
+    {"country": "Монако", "capital": "Монако"},
+    {"country": "Франція", "capital": "Париж"}
+  ],
+  "Південна Європа": [
+    {"country": "Греція", "capital": "Афіни"},
+    {"country": "Сербія", "capital": "Белград"},
+    {"country": "Мальта", "capital": "Валлетта"},
+    {"country": "Ватикан", "capital": "Ватикан"},
+    {"country": "Хорватія", "capital": "Загреб"},
+    {"country": "Португалія", "capital": "Лісабон"},
+    {"country": "Словенія", "capital": "Любляна"},
+    {"country": "Іспанія", "capital": "Мадрид"},
+    {"country": "Чорногорія", "capital": "Подгориця"},
+    {"country": "Італія", "capital": "Рим"},
+    {"country": "Сан-Марино", "capital": "Сан-Марино"},
+    {"country": "Боснія і Герцеговина", "capital": "Сараєво"},
+    {"country": "Північна Македонія", "capital": "Скоп'є"},
+    {"country": "Албанія", "capital": "Тирана"}
+  ],
+  "Північна Європа": [
+    {"country": "Литва", "capital": "Вільнюс"},
+    {"country": "Фінляндія", "capital": "Гельсінкі"},
+    {"country": "Ірландія", "capital": "Дублін"},
+    {"country": "Данія", "capital": "Копенгаген"},
+    {"country": "Велика Британія", "capital": "Лондон"},
+    {"country": "Норвегія", "capital": "Осло"},
+    {"country": "Ісландія", "capital": "Рейк'явік"},
+    {"country": "Латвія", "capital": "Рига"},
+    {"country": "Швеція", "capital": "Стокгольм"},
+    {"country": "Естонія", "capital": "Таллінн"}
+  ],
+  "Східна Європа": [
+    {"country": "Словаччина", "capital": "Братислава"},
+    {"country": "Угорщина", "capital": "Будапешт"},
+    {"country": "Румунія", "capital": "Бухарест"},
+    {"country": "Польща", "capital": "Варшава"},
+    {"country": "Україна", "capital": "Київ"},
+    {"country": "Молдова", "capital": "Кишинів"},
+    {"country": "Білорусь", "capital": "Мінськ"},
+    {"country": "Чехія", "capital": "Прага"},
+    {"country": "Болгарія", "capital": "Софія"}
+  ]
+}
