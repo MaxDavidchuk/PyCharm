@@ -7,9 +7,11 @@
         Отримані списки треба відобразити на екрані консолі.
 """
 
+
 def read_data(file_name: str) -> str:
     with open(file_name, 'r', encoding='utf-8') as file:
         return file.read()
+
 
 def print_set(s: set) -> None:
     k = 0
@@ -24,7 +26,7 @@ if __name__ == '__main__':
     pens2 = set(read_data('task1_2.txt').split())
     print("""
     =====================
-    =   Вхідні дані:    =
+    ->   Вхідні дані   <-
     ===================== """)
     print('\nПрізвища пенсіонерів у 1-му спику:')
     print_set(pens1)
@@ -32,7 +34,7 @@ if __name__ == '__main__':
     print_set(pens2)
     print("""
     =====================
-    =   Вихідні дані:   =
+    <-  Вихідні дані   ->
     ===================== """)
     print('\nПрізвища пенсіонерів, які присутні у двох списках:')
     print_set(pens1.intersection(pens2))
@@ -42,5 +44,5 @@ if __name__ == '__main__':
     print_set(pens2.difference(pens1))
     print("""
     =====================
-    =       Кінець      =
+    |       Кінець      |
     =====================""")

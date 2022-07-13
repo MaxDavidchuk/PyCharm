@@ -1,74 +1,79 @@
 {
-  "company": "MyCompany LTD",
-  "departments": [
-    {
-      "dep_name": "Комп'ютерний відділ",
-      "employees": [
+    "company": "MyCompany LTD",
+    "departments": [
         {
-          "emp_name": "Іванов Іван Іванович",
-          "emp_pos" : "Програміст",
-          "emp_age" : 24,
-          "emp_salary": 1300
+            "dep_name": "Комп'ютерний відділ",
+            "employees": [
+                {
+                    "emp_name": "Петров Петро Петрович",
+                    "emp_pos": "Старший програміст",
+                    "emp_age": 35,
+                    "emp_salary": 1700
+                },
+                {
+                    "emp_name": "Сидоров Сидор Сидорович",
+                    "emp_pos": "Тестувальник",
+                    "emp_age": 19,
+                    "emp_salary": 600
+                }
+            ]
         },
         {
-          "emp_name": "Петров Петро Петрович",
-          "emp_pos" : "Старший програміст",
-          "emp_age" : 35,
-          "emp_salary": 1700
+            "dep_name": "Фінансовий відділ",
+            "employees": [
+                {
+                    "emp_name": "Іваненко Іван Іванович",
+                    "emp_pos": "Бухгалтер",
+                    "emp_age": 33,
+                    "emp_salary": 1500
+                },
+                {
+                    "emp_name": "Петренко Петро Петрович",
+                    "emp_pos": "Економіст",
+                    "emp_age": 25,
+                    "emp_salary": 1100
+                },
+                {
+                    "emp_name": "Сидоренко Сидор Сидорович",
+                    "emp_pos": "Менеджер",
+                    "emp_age": 22,
+                    "emp_salary": 800
+                }
+            ]
         },
         {
-          "emp_name": "Сидоров Сидор Сидорович",
-          "emp_pos" : "Тестувальник",
-          "emp_age" : 19,
-          "emp_salary": 600
+            "dep_name": "Маркетинговий відділ",
+            "employees": [
+                {
+                    "emp_name": "Федоренко Федор Федорович",
+                    "emp_pos": "Маркетолог",
+                    "emp_age": 39,
+                    "emp_salary": 1800
+                },
+                {
+                    "emp_name": "Андрієв Андрій Андрійович",
+                    "emp_pos": "Дизайнер",
+                    "emp_age": 29,
+                    "emp_salary": 1200
+                },
+                {
+                    "emp_name": "Миколєв Миколай Миколайови",
+                    "emp_pos": "Стажер",
+                    "emp_age": 19,
+                    "emp_salary": 500
+                }
+            ]
+        },
+        {
+            "dep_name": "Юридичний відділ",
+            "employees": [
+                {
+                    "emp_name": "Василенко Василь Васильович",
+                    "emp_pos": "Юрисконсул",
+                    "emp_age": 27,
+                    "emp_salary": 1200.0
+                }
+            ]
         }
-      ]
-    },
-    {
-      "dep_name": "Фінансовий відділ",
-      "employees": [
-        {
-          "emp_name": "Іваненко Іван Іванович",
-          "emp_pos" : "Бухгалтер",
-          "emp_age" : 33,
-          "emp_salary": 1500
-        },
-        {
-          "emp_name": "Петренко Петро Петрович",
-          "emp_pos" : "Економіст",
-          "emp_age" : 25,
-          "emp_salary": 1100
-        },
-        {
-          "emp_name": "Сидоренко Сидор Сидорович",
-          "emp_pos" : "Менеджер",
-          "emp_age" : 22,
-          "emp_salary": 800
-        }
-      ]
-    },
-    {
-      "dep_name": "Маркетинговий відділ",
-      "employees": [
-        {
-          "emp_name": "Федоренко Федор Федорович",
-          "emp_pos" : "Маркетолог",
-          "emp_age" : 39,
-          "emp_salary": 1800
-        },
-        {
-          "emp_name": "Андрієв Андрій Андрійович",
-          "emp_pos" : "Дизайнер",
-          "emp_age" : 29,
-          "emp_salary": 1200
-        },
-        {
-          "emp_name": "Миколєв Миколай Миколайови",
-          "emp_pos" : "Стажер",
-          "emp_age" : 19,
-          "emp_salary": 500
-        }
-      ]
-    }
-  ]
+    ]
 }

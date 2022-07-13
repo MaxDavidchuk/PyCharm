@@ -12,7 +12,7 @@ def read_data(file_name: str) -> dict:
 
 
 def display_menu(x: list) -> None:
-    print('Виберіть частину Європи:')
+    print('\nВиберіть частину Європи:')
     k = 0
     for eur in x:
         k += 1
@@ -65,7 +65,7 @@ if __name__ == '__main__':
         elif case == 0:
             break
         else:
-            print('Ви вибрали неіснуючий пункт меню.')
+            print('Ви вибрали неіснуючий пункт меню.\n')
         if break_work():
             break
     print("""
