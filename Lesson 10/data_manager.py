@@ -193,3 +193,5 @@ def salary_change(data: dict, dep_name: str, emp_name: str, emp_salary: float) -
                 else:
                     print(f'Існуюча зарплата {salary} більша за запропоновану.')
                     print('Зарплату не змінено.')
+            else:
+                print('Працівника не знайдено')

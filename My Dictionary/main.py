@@ -3,8 +3,8 @@ from tkinter import messagebox
 import json
 
 
-bg1 = 'gray'
-
+bg1 = '#696969'
+tittle = 'Повідомлення'
 
 if __name__ == '__main__':
 	# Create window
@@ -47,13 +47,77 @@ if __name__ == '__main__':
 	with open('data.json', 'r', encoding='utf-8') as read_file:
 		data = json.load(read_file)
 
+
 	def save_data():
 		with open('data.json', 'w', encoding='utf-8') as write_file:
 			json.dump(data, write_file, indent=4, ensure_ascii=False)
-			messagebox.showinfo('Повідомлення', 'Дані успішно збережені.')
+			messagebox.showinfo(tittle, 'Дані успішно збережені.')
+
 
 	def trans_butt_handler(event):
 		print(f'Event -> TranslateButton-Click: {event}')
+		input_word = word.get()
+		if input_word == '':
+			messagebox.showwarning(tittle, 'Відсутнє слово для перекладу')
+			word.focus()
+		else:
+			output_trans = data.get(input_word)
+			if output_trans is None:
+				messagebox.showinfo(tittle, 'Дане слово відсутнє у словнику')
+			else:
+				trans.delete(0, END)
+				trans.insert(0, output_trans)
+
+
+	def add_butt_handler(event):
+		print(f'Event -> AddTranslateButton_click: {event}')
+		input_word = word.get()
+		if input_word == '':
+			messagebox.showwarning(tittle, 'Відсутнє слово для перекладу')
+			word.focus()
+		elif input_word in data:
+			messagebox.showwarning(tittle, 'Введене слово вже є у словнику')
+		else:
+			output_trans = trans.get()
+			if output_trans == '':
+				messagebox.showwarning(tittle, 'Відсутній переклад даного слова')
+				trans.focus()
+			else:
+				data[input_word] = output_trans
+				save_data()
+
+
+	def del_butt_handler(event):
+		print(f'Event -> DeleteTranslateButton_click: {event}')
+		input_word = word.get()
+		if input_word in data:
+			del data[input_word]
+			save_data()
+			messagebox.showinfo(tittle, 'Слово успішно видалено із словника.')
+		else:
+			messagebox.showwarning(tittle, 'Даного слова немає у словнику.')
+
+
+	def upd_butt_handler(event):
+		print(f'Event -> UpdateTranslateButton_click: {event}')
+		input_word = word.get()
+		if input_word not in data:
+			messagebox.showwarning(tittle, 'Даного слова немає у словнику.')
+		else:
+			output_trans = trans.get()
+			if output_trans == '':
+				messagebox.showwarning(tittle, 'Відсутній переклад даного слова')
+			elif output_trans == data.get(input_word):
+				messagebox.showwarning(tittle, 'Переклад даного слова не був змінений')
+			else:
+				data[input_word] = output_trans
+				save_data()
+				messagebox.showinfo(tittle, 'Переклад успішно оновлений.')
+
 
 	# Block RUN has to be the last
+	trans_butt.bind('<Button-1>', trans_butt_handler)
+	add_butt.bind('<Button-1>', add_butt_handler)
+	del_butt.bind('<Button-1>', del_butt_handler)
+	upd_butt.bind('<Button-1>', upd_butt_handler)
 	root.mainloop()
