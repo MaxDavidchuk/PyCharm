@@ -1,3 +1,3 @@
-x = {'car': 'volvo'}
-for k in x:
-	print(x[k])
+x = ['Робота', 'Друзі', 'Сім\'я']
+print(x[x.index('Робота')])
+print(x.index('Робота'))
