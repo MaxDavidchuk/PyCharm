@@ -4,13 +4,25 @@ from tkinter import messagebox
 import json
 
 bg1 = '#f7ef38'
+bg2 = '#BDD7EE'
 fg1 = '#0000ff'
 msg_title = 'Телефона книжка'
 
+
 if __name__ == '__main__':
+	data = dict()
+	fio = list()
+
 	def disable_event():
 		messagebox.showinfo(msg_title, 'Щоб завершити роботу натисніть кнопку "ВИХІД".')
 
+
+	def refresh_data():
+		""" Оновлення словаря та списку"""
+		global data, fio
+		with open('data.json', 'r', encoding='utf-8') as read_file:
+			data = json.load(read_file)
+			fio = [name.get('name') for name in data.get('book')]
 
 	def save_data():
 		with open('data.json', 'w', encoding='utf-8') as write_file:
@@ -22,7 +34,6 @@ if __name__ == '__main__':
 		name_entry.delete(0, END)
 		phone_entry.delete(0, END)
 		group_combo.set('')
-		return
 
 
 	def search_clear():
@@ -31,37 +42,75 @@ if __name__ == '__main__':
 		search.focus()
 
 
-	def check_entry() -> list:
-		if name_entry.get() == '':
-			return ["Ім'я", name_entry]
-		elif phone_entry.get() == '':
-			return ['Телефон', phone_entry]
-		elif group_combo.get() == '':
-			return ['Група', group_combo]
+	def check_entry(yes=True) -> bool:
+		if not name_entry.get():
+			choice = ["Ім'я", name_entry]
+		elif not phone_entry.get():
+			choice = ['Телефон', phone_entry]
+		elif not group_combo.get() and yes:
+			choice = ['Група', group_combo]
 		else:
-			return []
+			choice = []
+		if choice:
+			messagebox.showerror('Увага!', 'Не заповнено поле "{}"'.format(choice[0]))
+			choice[1].focus()
+			return False
+		else:
+			return True
 
 	def check_data(elem: str, wtf: str) -> bool:
-		base = [name.get(elem) for name in data.get('book')]
-		return True if wtf in base else False
+		return True if wtf in [name.get(elem) for name in data.get('book')] else False
+
+
+	def contact_upd():
+		pass
+
+
+	def contact_del():
+		""" Функція видалення контакту"""
+		if check_entry(False):
+			tmp_name = name_entry.get()
+			tmp_phone = phone_entry.get()
+			if not check_data('name', tmp_name):
+				tmp_str = f"Контакт з ім'ям {tmp_name} не існує!"
+			elif not check_data('phone', tmp_phone):
+				tmp_str = f"Контакт з телефоном {tmp_phone} не існує"
+			else:
+				if messagebox.askquestion(msg_title, 'Видалити обраний контакт?') == 'yes':
+					index = -1
+					for book in data.get('book'):    # Пошук індекса
+						index += 1
+						if book.get('phone') == tmp_phone:
+							break
+					if index > -1:
+						data.get('book').pop(index)
+						save_data()
+
+					clear_entry()
+					refresh_data()
+					fill_listbox(fio)
+				return
+			messagebox.showinfo(msg_title, tmp_str)
 
 	def contact_add():
-		case = check_entry()
-		if len(case) > 0:
-			messagebox.showerror('Увага!', 'Не заповнено поле "{}"'.format(case[0]))
-			case[1].focus()
-			return
-		else:
-			if check_data('name', name_entry.get()):
-				tmp_str = f"Контакт з ім'ям {name_entry.get()} вже існує"
-			elif check_data('phone', phone_entry.get()):
-				tmp_str = f"Контакт з телефоном {phone_entry.get()} вже існує"
+		""" Функція додавання нового контакту"""
+		if check_entry():
+			tmp_name = name_entry.get()
+			tmp_phone = phone_entry.get()
+			if check_data('name', tmp_name):
+				tmp_str = f"Контакт з ім'ям {tmp_name} вже існує"
+			elif check_data('phone', tmp_phone):
+				tmp_str = f"Контакт з телефоном {tmp_phone} вже існує"
 			else:
 				if messagebox.askquestion(msg_title, 'Додати новий контакт?') == 'yes':
-					data.get('book').append({"name": "2", "phone": "2", "group": "2"})
+					data.get('book').append({"name": tmp_name, "phone": tmp_phone, "group": group_combo.get()})
 					save_data()
-					return
-		messagebox.showinfo(msg_title, tmp_str)
+					clear_entry()
+					refresh_data()
+					fill_listbox(fio)
+				return
+			messagebox.showinfo(msg_title, tmp_str)
+			# clear_entry()
 
 
 	def item_selected(event):
@@ -76,17 +125,20 @@ if __name__ == '__main__':
 		return
 
 
-	def fill_listbox(self, temp: list):
+	def fill_listbox(temp):
+		temp.sort()
+		lbox.delete(0, END)
 		for item_name in temp:
-			self.insert(END, item_name)
+			lbox.insert(END, item_name)
 		count_label.config(text='Всього контактів: ' + str(len(temp)))
 
 
 	def cb_search(event):
+		""" Функція пошуку контакту у вікні Entry"""
 		s_str = search_str.get()
 		lbox.delete(0, END)
 		if s_str == '':  # If filter removed show all data
-			fill_listbox(lbox, fio)
+			fill_listbox(fio)
 			return
 		elif len(s_str) == 1:
 			s_str = s_str.upper()
@@ -96,7 +148,7 @@ if __name__ == '__main__':
 		for item in fio:
 			if item.find(s_str) >= 0:
 				filtered_data.append(item)
-		fill_listbox(lbox, filtered_data)
+		fill_listbox(filtered_data)
 
 
 	# Create window
@@ -128,19 +180,15 @@ if __name__ == '__main__':
 	add_butt = Button(lf_left, text='Додати контакт', command=contact_add, font='Arial 10', width=20)
 	add_butt.pack(fill=X, padx=5, pady=10)
 	# del_img = PhotoImage(file='del.png').subsample(4, 4)
-	del_butt = Button(lf_left, text='Видалити контакт', command='', font='Arial 10', width=20, state=DISABLED)
+	del_butt = Button(lf_left, text='Видалити контакт', command=contact_del, font='Arial 10', width=20)
 	del_butt.pack(fill=X, padx=5)
 	# upd_img = PhotoImage(file='upd.png').subsample(4, 4)
-	upd_butt = Button(lf_left, text='Змінити контакт', command='', font='Arial 10', width=20, state=DISABLED)
+	upd_butt = Button(lf_left, text='Змінити контакт', command='', font='Arial 10', width=20)
 	upd_butt.pack(fill=X, padx=5, pady=10)
 
 	# ListBox
-	with open('data.json', 'r', encoding='utf-8') as read_file:
-		data = json.load(read_file)
-		fio = [name.get('name') for name in data.get('book')]
-		fio.sort()
-		group = data.get('member')
-
+	refresh_data()
+	group = data.get('member')
 	search_block = Frame(f_body, bg=bg1)
 	search_block.pack(anchor=W, padx=10, pady=5)
 	Label(search_block, text='Пошук -> ', bg=bg1, font='Arial 10').pack(side=LEFT)
@@ -159,14 +207,14 @@ if __name__ == '__main__':
 	scroll.config()
 	count_label = Label(f_body, font='Arial 11 bold', bg=bg1, fg=fg1)
 	count_label.pack(padx=10, anchor=W)
-	fill_listbox(lbox, fio)
+	fill_listbox(fio)
 
 	# FOOTER block
 	top_block = Frame(f_footer)
 	top_block.pack(anchor=W)
-	Label(top_block, width=23, text='Ім\'я:', font='Arial 10 bold', relief=RAISED, bg='#BDD7EE').pack(side=LEFT)
-	Label(top_block, width=17, text='Телефон:', font='Arial 10 bold', relief=RAISED, bg='#BDD7EE').pack(side=LEFT)
-	Label(top_block, width=15, text='Група:', font='Arial 10 bold', relief=RAISED, bg='#BDD7EE').pack()
+	Label(top_block, width=23, text='Ім\'я:', font='Arial 10 bold', relief=RAISED, bg=bg2).pack(side=LEFT)
+	Label(top_block, width=17, text='Телефон:', font='Arial 10 bold', relief=RAISED, bg=bg2).pack(side=LEFT)
+	Label(top_block, width=15, text='Група:', font='Arial 10 bold', relief=RAISED, bg=bg2).pack()
 	bottom_block = Frame(f_footer, bg=bg1)
 	bottom_block.pack(anchor=W)
 	var_name = StringVar()
