@@ -19,15 +19,38 @@
     5. ПОЛІМОРФІЗМ.
     ---------------------------------------------------------
 """
+
+import pickle
 from models.student import Student
+from models.group import Group
 
 
 if __name__ == '__main__':
+
+    # 1
     student1 = Student('Вася Пупкин', 21, 7.5)
     student2 = Student('Катерина Шубкіна', 19, 11.2)
     student3 = Student('Наталія Супкіна', 27, 10)
+    # 2
+    group = Group('Python Py-24')
+    group.add_student(student1)
+    group.add_student(student2)
+    group.add_student(student3)
+    print(group)
+    group.display_students()
+    # 3
+    group.del_student('Катерина Шубкіна')
+    group.rate_change('Вася Пупкин', 9.5)
+    print(group)
+    group.display_students()
+    # 4 - Серіалізація об'єкту group у бінарний файл
+    with open('group.dat', 'wb') as file:
+        pickle.dump(group, file)
+    print('\n> Дані були успішно серіалізовані')
 
-    students_list = [student1, student2, student3]
-
-    for student in students_list:
-        print(student)
+    # 5 - Десеріалізація (зчитування даних)
+    with open('group.dat', 'rb') as file:
+        group = pickle.load(file)
+    print('\n> Дані були успішно десеріалізовані')
+    print(group)
+    group.display_students()

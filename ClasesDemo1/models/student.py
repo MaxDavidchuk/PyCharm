@@ -8,10 +8,19 @@ class Student(object):
 
     def __str__(self):
         """ Метод строкового представлення інформації про об'єкт """
-        info = f'\n> Ім\'я студента: {self.__name}'
-        info += f'\n  Вік студента: {self.__age} років'
-        info += f'\n  Рейтинг студента: {self.__rate}'
+        info = f'Ім\'я студента: {self.__name}'
+        info += f'\n   Вік студента: {self.__age} років'
+        info += f'\n   Рейтинг студента: {self.__rate}'
         return info
 
-    def method1(self):
-        print(f'Студент {self.__name} витирає дошку')
+    @property
+    def name(self) -> str:
+        return self.__name
+
+    @property
+    def rate(self) -> float:
+        return self.__rate
+
+    @rate.setter
+    def rate(self, new_rate: float):
+        self.__rate = new_rate
