@@ -60,25 +60,49 @@ class Fraction(object):
         return calculate(int(n / nod), int(m / nod))
 
 
+class Arr(object):
+
+    def __init__(self):
+        self.__fraction = []
+
+    def __str__(self) -> str:
+        return f'\nДодавання дробів ({int(len(self.__fraction) / 2)} прикладів):'
+
+    @property
+    def fraction(self):
+        return self.__fraction
+
+    def add_fraction(self, fraction: Fraction) -> None:
+        self.__fraction.append(fraction)
+
+
+class Rule(object):
+
+    def __init__(self):
+        self.__arr = Arr()
+
+    @property
+    def arr(self):
+        return self.__arr
+
+    def init_data(self) -> None:
+        self.__arr.add_fraction(Fraction(1, 2))
+        self.__arr.add_fraction(Fraction(1, 3))
+        self.__arr.add_fraction(Fraction(5, 6))
+        self.__arr.add_fraction(Fraction(8, 6))
+        self.__arr.add_fraction(Fraction(1, 2))
+        self.__arr.add_fraction(Fraction(1, 2, 1))
+        self.__arr.add_fraction(Fraction(13, 8))
+        self.__arr.add_fraction(Fraction(11, 6))
+        self.__arr.add_fraction(Fraction(2, 5))
+        self.__arr.add_fraction(Fraction(3, 7, 1))
+
+
 if __name__ == '__main__':
-    print('\nДодавання дробів:')
-    print('============================')
-    f01 = Fraction(1, 2)
-    f02 = Fraction(1, 3)
-    print(f'{f01} + {f02} = {f01 + f02}')
-    print('============================')
-    f11 = Fraction(5, 6)
-    f12 = Fraction(8, 6)
-    print(f'{f11} + {f12} = {f11 + f12}')
-    print('============================')
-    f21 = Fraction(1, 2)
-    f22 = Fraction(1, 2, 1)
-    print(f'{f21} + {f22} = {f21 + f22}')
-    print('============================')
-    f31 = Fraction(13, 8)
-    f32 = Fraction(11, 6)
-    print(f'{f31} + {f32} = {f31 + f32}')
-    print('============================')
-    f41 = Fraction(2, 5)
-    f42 = Fraction(3, 7, 1)
-    print(f'{f41} + {f42} = {f41 + f42}')
+    run = Rule()
+    run.init_data()
+    print(run.arr)
+    for i in range(0, len(run.arr.fraction) - 1, 2):
+        print('=========================')
+        print(f'{run.arr.fraction[i]} + {run.arr.fraction[i + 1]} = '
+              f'{run.arr.fraction[i] + run.arr.fraction[i + 1]}')
