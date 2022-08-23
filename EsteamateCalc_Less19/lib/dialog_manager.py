@@ -9,7 +9,7 @@ class DialogManager(object):
     def __init__(self):
         self._calc = CalcManager()
 
-    def input_shapes_pararms(self) -> None:
+    def input_shapes(self) -> None:
         n = int(input('\n> Введіть загальну кількість фігур: '))
         for i in range(n):
             case = int(input('Виберіть фігуру (1 - circle, 2 - rectangle, 3 - triangle): '))
@@ -25,7 +25,7 @@ class DialogManager(object):
             else:
                 print('  Ви ввели неіснуючий варіант')
 
-    def call_display_report(self) -> None:
+    def display_report(self) -> None:
         case = int(input('\n> Вивести короткий звіт (1) чи розгорнутий звіт (2)?: '))
         if case == 1:
             print(f'  Загальна площа: {self._calc.calc_general_square()}')
