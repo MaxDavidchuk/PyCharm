@@ -1,4 +1,5 @@
-''' http://www.uml3.ru/ '''
+""" http://www.uml3.ru/ """
+
 from general_models.director import Director
 from builders_models.brick_builder import BrickBuilder
 from builders_models.stone_builder import StoneBuilder

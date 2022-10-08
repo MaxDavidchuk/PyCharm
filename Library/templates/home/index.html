@@ -1,0 +1,61 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %}Головна сторінка{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+            <!-- Heading Row-->
+            <div class="row gx-4 gx-lg-5 align-items-center my-4">
+                <div class="col-lg-7"><img src="{{ url_for('static', filename='assets/logo.jpg') }}" class="img-fluid rounded mb-4 mb-lg-0"  alt="Logo" /></div>
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light">Сайт шкільної бібліотеки</h1>
+                    <p class="text-start">Вітаємо Вас на сайті нашої Бібліотеки!<br/>Онлайн-формат дозволяє читачеву долучитися до великої кількості цікавих книжок та наукових статей.<br/>Реєстрація на сайті у 2 кліка мишкою дозволить Вам долучитися до нових знань.</p>
+                    <a class="btn btn-warning btn-sm" href="/auth/signup"><i class="fa fa-user-plus fa-beat"></i>  Зареєструватися</a>
+                </div>
+            </div>
+            <!-- Call to Action
+            <div class="card text-white bg-secondary my-5 py-4 text-center">
+                <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
+            </div>-->
+</div>
+
+    <div class="container text-start">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary"><i class="fa fa-book"></i> Новинки</strong>
+                        <h3 class="mb-0">Надходження цього тижня</h3>
+                        <div class="mb-1 text-muted">14-09-2022</div>
+                        <p class="card-text mb-auto">Саме для Вас ми підготувалу підбірку нових надходжень. ТОП-10 цього тижня за посиланням.</p>
+                        <a href="#" class="w-50 btn btn-sm btn-warning"><i class="fa fa-angles-right fa-beat"></i> Продовжити</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-danger"><i class="fa-solid fa-circle-info"></i> Зверніть увагу</strong>
+                        <h3 class="mb-0">Зміни у розкладі</h3>
+                        <div class="mb-1 text-muted">12-09-2022</div>
+                        <p class="mb-auto">Починаючи із 12 вересня 2022 року змінений графік роботи нашої бібліотеки. Деталі за посиланням.</p>
+                        <a href="#" class="w-50 btn btn-sm btn-warning"><i class="fa fa-angles-right fa-beat"></i> Продовжити</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .bg-gradient-light-white {
+            background-image: linear-gradient(180deg,#f9fbfd 0,#fff);
+        }
+    </style>
+{% endblock content%}

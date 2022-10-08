@@ -1,0 +1,176 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %}Реєстрація{% endblock title %}
+
+
+{% block content %}
+<div class="container mb-3">
+    <div class="row justify-content-center">
+        <div class="card text-center col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12  px-0 shadow">
+            <form method="post" action="/auth/signup" class="card-body" id="my-form">
+                <div style="color: #2F241D;">
+                    <i class="fa fa-user-plus fa-3x"></i>
+                    <h4 class="card-title mb-3">Реєстрація</h4>
+                </div>
+
+                <!-- Login -->
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingLogin" name="login" placeholder="Введіть ваш логін" required>
+                    <label for="floatinglogin">Логін:</label>
+                    <span id="error-log" class="error text-start"></span>
+                </div>
+                <!-- Pass1 -->
+                <div class="form-floating  mb-3">
+                    <input type="password" class="form-control" id="floatingPwd1" name="pass1"placeholder="Password" required>
+                    <label for="floatingPwd1">Пароль:</label>
+                    <span id="error-pass1" class="error text-start"></span>
+                </div>
+                <!-- Pass2 -->
+                <div class="form-floating  mb-3">
+                    <input type="password" class="form-control" id="floatingPwd2" name="pass2"placeholder="Password" required>
+                    <label for="floatingPwd2">Підтвердження:</label>
+                    <span id="error-pass2" class="error text-start"></span>
+                </div>
+                <!-- Email -->
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Введіть ваш E-mail" required>
+                    <label for="floatingEmail">E-Mail:</label>
+                    <span id="error-email" class="error text-start"></span>
+                </div>
+                <br/>
+                <button id="submit" class="w-50 btn btn-sm btn-warning" type="submit"><i class="fa fa-user-plus fa-beat"></i> Зареєструватися</button>
+                <div class="registration-message card-text mt-3">
+                    Реєструючись, ви погоджуєтесь з <a id="tos" href="#" class="card-link"><!----> <span>угодою користувача</span></a>
+                </div>
+            </form>
+            <div class="card-footer">
+                <p class="card-text">Вже є аккаунт? <a href="/auth/signin" class="card-link">Вхід</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="{{ url_for('static', filename='') }}"></script> -->
+<script>
+    // Global
+    console.log('script -> start');
+    let loginValid = false;
+    let pass1Valid = false;
+    let pass2Valid = false;
+    let emailValid = false;
+
+    // login
+    const loginInput = $('#floatingLogin');
+    loginInput.blur(() => {
+        let login = loginInput.val();
+        // console.log('login -> blur -> ' + login);
+        let regexp = /^[a-zA-Z][a-zA-Z0-9_\-\.]{7,15}$/;
+        let msg = 'Логін довжиною від 8 до 16 символів, перший - буква, ';
+        msg += 'без пробілів, букви, цифри, _, -, .';
+        if (regexp.test(login)) {
+            // !!! Перевірка зайнятості логіну
+            //=====================================
+            $.ajax({
+                url: '/auth/ajax',
+                data: 'login=' + login,
+                success: function(response) {
+                    console.log(response.msg);
+                    if (response.msg) {
+                        loginInput.css('box-shadow', '0 0 3px green');
+                        $('#error-log').text('');
+                        loginValid = true;
+                    } else {
+                        loginInput.css('box-shadow', '0 0 3px red');
+                        $('#error-log').text('Такий логін вже існує. Введіть інший');
+                        loginValid = false;
+                    }
+                }
+            });
+            //
+        } else {
+            loginInput.css('box-shadow', '0 0 3px red');
+            $('#error-log').text(msg);
+            loginValid = false;
+        }
+    });
+    // Password1
+    const passInput = $('#floatingPwd1');
+    passInput.blur(() => {
+        let pass = passInput.val();
+        console.log('pass1 -> blur -> ' + pass);
+        let regexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9_\-\.]{8,}$/;
+        let msg = 'Пароль довжиною мінімум 8 символів, хоча б одна маленька';
+        msg += ' літера, хоча б одна ВЕЛИКА літера, хоча б одна цифра, _, -, .';
+        if (regexp.test(pass)) {
+            passInput.css('box-shadow', '0 0 3px green');
+            $('#error-pass1').text('');
+            pass1Valid = true;
+        } else {
+            passInput.css('box-shadow', '0 0 3px red');
+            $('#error-pass1').text(msg);
+            pass1Valid = false;
+        }
+    });
+    // Password2
+    const pass2Input = $('#floatingPwd2');
+    pass2Input.blur(() => {
+        var pass2 = pass2Input.val();
+        var pass = passInput.val();
+        console.log('pass2 -> blur -> ' + pass);
+        var msg = 'Введені паролі не співпадають';
+        if (pass === pass2) {
+            pass2Input.css('box-shadow', '0 0 3px green');
+            $('#error-pass2').text('');
+            pass2Valid = true;
+        } else {
+            pass2Input.css('box-shadow', '0 0 3px red');
+            $('#error-pass2').text(msg);
+            pass2Valid = false;
+        }
+    });
+    // email
+    const emailInput = $('#floatingEmail');
+    emailInput.blur(() => {
+        let email = emailInput.val();
+        console.log('login -> blur -> ' + email);
+        let regexp = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+        let msg = 'Електрона адреса введена не вірно!';
+        msg += ' Приклад: name@email.com';
+        if (regexp.test(email)) {
+            // !!! Перевірка зайнятості логіну
+            //=====================================
+            $.ajax({
+                url: '/auth/ajax',
+                data: 'email=' + email,
+                success: function(response) {
+                    console.log(response.msg);
+                    if (response.msg) {
+                        emailInput.css('box-shadow', '0 0 3px green');
+                        $('#error-email').text('');
+                        emailValid = true;
+                    } else {
+                        emailInput.css('box-shadow', '0 0 3px red');
+                        $('#error-email').text('Такий Emai вже існує. Введіть інший');
+                        emailValid = false;
+                    }
+                }
+            });
+            //
+        } else {
+            emailInput.css('box-shadow', '0 0 3px red');
+            $('#error-email').text(msg);
+            emailValid = false;
+        }
+    });
+    // submit
+    $('#submit').click((event) => {
+        console.log('submit -> click');
+        if (!loginValid && !pass1Valid && !pass2Valid && !emailValid) {
+            event.preventDefault();
+            alert('Відправка даних заблокована валідатором!');
+        }
+    });
+</script>
+
+{% endblock content%}

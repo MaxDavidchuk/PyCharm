@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %}{{ context.res_header }}{% endblock title %}
+
+
+{% block content %}
+
+<div class="container">
+    <h2>{{ context.res_header }}</h2>
+    <h4 style="color:{{context.res_color}}">{{ context.res_msg }}</h4>
+    {% if context.res_color == 'red' %}
+        <p class="card-text">Спробуйте ще раз. <a href="/auth/signup" class="card-link">Зареєструватися</a></p>
+    {% endif %}
+</div>
+
+
+{% endblock content%}

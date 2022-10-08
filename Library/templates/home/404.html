@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %}Сторінка не знайдена{% endblock title %}
+
+
+{% block content %}
+
+<div class="container">
+    <h1>Вибачте,</h1>
+    <h4>сторінка, яку Ви шукаєте, не існує.</h4>
+    <a href="/"><p>Натисніть тут</a> для переходу на Головну сторінку, або поверніться <a href="#" onclick="history.back()">Назад</a></p>
+    <img src="{{ url_for('static', filename='assets/404.png') }}" class="img-fluid rounded mb-4 mb-lg-0"  alt="Logo" />
+</div>
+
+
+{% endblock content%}

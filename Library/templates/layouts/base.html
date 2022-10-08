@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Сайт шкільної бібліотеки" />
+        <meta name="author" content="Максим Давидчук" />
+        <title>Library - {% block title %}{% endblock title %}</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon2.ico') }}" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" /> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
+        <script src="https://kit.fontawesome.com/1d73c9af6a.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-latest.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <header>
+            {% include 'layouts/nav.html' %}
+        </header>
+        <main>
+            <hr/>
+            {% block content %}{% endblock content %}
+        </main>
+
+        <footer class="mt-auto">
+            {% include 'layouts/footer.html' %}
+        </footer>
+
+
+
+        <!-- <footer class="py-5" style="background-color: #2F241D;">
+            <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Шкільна бібліотека 2022</p></div>
+        </footer>
+        -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

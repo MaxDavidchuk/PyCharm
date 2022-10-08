@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %}Зворотній зв'язок{% endblock title %}
+
+
+{% block content %}
+
+<div class="container mb-3">
+    <div class="row justify-content-center">
+        <div class="card text-center col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12 shadow">
+            <form method="POST" id="contactForm" name="contactForm" action="/home/feedback" class="card-body">
+                <div style="color: #2F241D;">
+                    <i class="fa-regular fa-comments fa-3x"></i>
+                    <h4 class="card-title mb-3">Зворотній зв'язок</h4>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="fb_name" name="fb_name" placeholder="Введіть ваше ім'я" required>
+                    <label for="fb_name">Ім'я:</label>
+                    <span id="error-name" class="error text-start"></span>
+                </div>
+
+                <div class="form-floating  mb-3">
+                    <input type="email" class="form-control" id="fb_mail" name="fb_mail" placeholder="Введіть Ваш E-Mail" required>
+                    <label for="fb_mail">E-Mail:</label>
+                    <span id="error-mail" class="error text-start"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="fb_subject" name="fb_subject" placeholder="Тема звернення" required>
+                    <label for="fb_subject">Тема:</label>
+                    <span id="error-subject" class="error text-start"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="fb_text" name ="fb_text" placeholder="Текст повідомлення тут"style="height: 100px"></textarea>
+                    <label for="fb_text">Повідомлення:</label>
+                    <span id="error-text" class="error text-start"></span>
+                </div>
+
+                <button class="w-50 btn btn-sm btn-warning" type="submit"><i class="fa fa-comments fa-beat"></i> Надіслати</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content%}

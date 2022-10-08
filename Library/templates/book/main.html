@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %}Сторінка Адміністратора{% endblock title %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-4 mt-3">
+            <label class="text-start" for="l-author">Автор:</label>
+            <select class="form-select form-select-sm" id="l-author">
+                <option value="0">Виберіть автора...</option>
+                {% for ganr in context.all_ganres %}
+                    <option value="{{ ganr.get('id') }}">{{ ganr.get('name') }}</option>
+                {% endfor %}
+            </select>
+            <hr/>
+            <a href="#" class="w-50 btn btn-sm btn-warning shadow"><i class="fa fa-magnifying-glass fa-beat"></i> Пошук</a>
+        </div>
+
+        <div class="col-xl-9 col-lg-9 col-md-8">
+            <table class="table table-hover table-sm mt-3">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Назва книжки</th>
+                        <th>Автор</th>
+                        <th>Управління</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for client in context.all_clients %}
+                        <tr>
+                            <td>{{ client.get('id') }}</td>
+                            <td>{{ client.get('login') }}</td>
+                            <td>{{ client.get('email') }}</td>
+                            <td>{{ client.get('regdate') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+
+{% endblock content%}
