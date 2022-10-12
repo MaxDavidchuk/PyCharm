@@ -74,7 +74,7 @@ class Client(object):
             on c.role_id = r.id
         """
         cur.execute(sql_query)
-        clients_list = list()
+        clients_list = []
         for row in cur.fetchall():
             clients_list.append({
                 'id': row[0], 'login': row[1], 'email': row[2],
@@ -98,7 +98,7 @@ class Client(object):
             where r.name = %s
         """
         cur.execute(sql_query, [role])
-        clients_list = list()
+        clients_list = []
         for row in cur.fetchall():
             clients_list.append({
                 'id': row[0], 'login': row[1], 'email': row[2],
@@ -128,4 +128,19 @@ class Client(object):
         cur.execute(query, [cid])
         return cur.fetchone()[0]
 
-
+    @staticmethod
+    def change_role(user: str, role: str) -> bool:
+        """ =======================
+            Зміна ролі користувача
+            ======================= """
+        sql_query = """
+            update clients
+            set role_id = (select id from roles where name = %s)
+            where name = %s
+        """
+        conn = mysql.get_db()
+        cur = conn.cursor()
+        res = cur.execute(sql_query, (role, user))
+        cur.close()
+        conn.close()
+        return res == 1

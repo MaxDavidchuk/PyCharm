@@ -8,25 +8,61 @@
 
 <div class="container">
     <h2>Редагування користувача</h2>
-    <h5 class="text-primary">{{ context.user_name }}</h5>
+    <h5 class="text-primary" id="user">{{ context.user_name }}</h5>
     <form method="post" action="/auth/editor/{{context.user_id}}" class="mt-3 row row-cols-lg-auto">
         <div class="col-auto text-primary">
-            Поточна роль: <span class="fw-bold">{{ context.user_role }}</span>
+            Поточна роль: <span class="fw-bold" id="cur-role">{{ context.user_role }}</span>
         </div>
         <div class="col-auto">
-            <select class="form-select form-select-sm" name="role">
+            <select class="form-select form-select-sm role" name="role" id="new-role">
+                <option>All users</option>
                 {% for role in context.all_roles %}
                     <option>{{ role.get('name') }}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-sm btn-outline-secondary">
+            <button type="submit" id="submit" class="btn btn-sm btn-outline-secondary">
                 <i class="fa-solid fa-user-check"></i>
             </button>
         </div>
+        <div class="col-auto">
+            <a href="#" id="go-back" onclick="history.back()" class="btn btn-sm btn-outline-primary">Назад</a>
+        </div>
     </form>
 </div>
+<script>
+    $(document).ready(()=> {
+        $('#go-back').hide();
+        $('#submit').hide();
+    });
 
+    $('select').change(() => {
+        if ($('#cur-role').val() === 'Admin') {
+            $('#error').text('Поточну роль "Admin" змінити НЕ МОЖЛИВО. Виберіть іншого користувача.');
+            $('#go-back').fadeIn();
+        } else if($('#new-role').val() === 'All users') {
+            $('#error').text('Виберіть нову роль для користувача.');
+        } else {
+            $('#submit').fadeIn();
+            $('#error').text('');
+        }
+    });
+
+    $('#submit').click((event) => {
+        console.log('submit -> start');
+        $.ajax({
+                url: '/auth/ajax_editor',
+                data: {user: $('#user').val(), role: $('#new-role').val()},
+                success: function(response) {
+                    console.log(response.msg);
+                    if (!response.msg) {
+                        $('#error').text('Щось пішло не так. Спробуйте ще раз.');
+                        event.preventDefault();
+                    }
+                }
+            });
+    });
+</script>
 
 {% endblock content%}

@@ -1,0 +1,22 @@
+body {
+    text-align: center;
+    font: 12pt 'Segoe UI';
+    padding: 10px 10%;
+}
+
+.nav_left { float: left; text-align: left; }
+
+.nav_right { text-align: right; }
+
+nav a {
+    text-decoration: none;
+    margin: 5px 10px;
+    color: navy;
+}
+
+nav a:hover {
+    color: red;
+}
+
+nav ul { list-style: none; }
+h4 { color: brown}

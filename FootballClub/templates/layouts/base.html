@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FootballClub - {% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Футбольний клуб "Поділля"</h1>
+        <hr/>
+        <nav>
+            <div class="nav_left">
+                <a href="/">Головна</a>
+                <a href="/about">Про сайт</a>
+                <a href="/news">Новини</a>
+                <a href="/contacts">Контакти</a>
+            </div>
+            <div class="nav_right">
+                <a href="">MongoDB-Demo</a>
+                <ul>
+                    <li><a href="/create_user">CreateUser</a></li>
+                    <li><a href="/create_users">CreateUsers</a></li>
+                    <li><a href="/read_users">ReadUser</a></li>
+                    <li><a href="/check_user">CheckUser</a></li>
+                    <li><a href="/update_user">UpdateUser</a></li>
+                    <li><a href="/delete_user">DeleteUser</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <hr/>
+        <h4>Copyright: &copy MaxDesign, Kyiv - 2022</h4>
+    </footer>
+</body>
+</html>

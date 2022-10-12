@@ -92,7 +92,7 @@ class AuthViews(object):
         if request.method == 'GET':
             if 'user' in session  and session['user'] == 'admin123':
                 return render_template('auth/admin.html', context={
-                    'all_clients': c_model.get_clients(),
+                    'all_clients': c_model.get_clients('All users'),
                     'all_roles': r_model.get_roles(),
                     'msg': ''
                 })
@@ -100,9 +100,8 @@ class AuthViews(object):
                 return make_response(render_template('auth/403.html'), 403)
         elif request.method == 'POST':
             role = request.form['role']
-            all_clients = c_model.get_clients() if role == 'All users' else c_model.get_select(role)
             return render_template('auth/admin.html', context={
-                    'all_clients': all_clients,
+                    'all_clients': c_model.get_clients(role),
                     'all_roles': r_model.get_roles(),
                     'msg': f'Обрана роль: {role}'
                 })
@@ -126,10 +125,13 @@ class AuthViews(object):
         elif request.method == 'POST':
             role = request.form['role']
             return render_template('auth/admin.html', context={
-                    'all_clients': c_model.get_select(role),
+                    'all_clients': c_model.get_clients(role),
                     'all_roles': r_model.get_roles(),
                     'msg': f'Обрана роль: {role}'
                 })
 
-
-
+    @staticmethod
+    @app.route('/auth/ajax_editor')
+    def auth_ajax_editor():
+        msg = Client().change_role(request.args.get('user'), request.args.get('role'))
+        return {'msg': msg}
