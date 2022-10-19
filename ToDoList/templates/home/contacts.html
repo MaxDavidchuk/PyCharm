@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Contacts{% endblock %}
+{% block content %}
+
+<script>
+    $(document).ready(() => {
+        $('#navbar-content ul li a.active').removeClass('active');
+        $('a[href^="/contacts"]').addClass('active')
+    })
+</script>
+
+<div class="container">
+    <h3>Contacts</h3>
+</div>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Create new Task{% endblock %}
+{% block content %}
+
+<div class="conrainer py-4">
+    <form class="form" action="/task/create" method="post">
+        <input type="hidden" id="tab-count" name="tab-count" value=""/>
+        <div class="row justify-content-center">
+            <div class="card text-start col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12  p-3 shadow">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-tab-task1" data-bs-toggle="tab" data-bs-target="#nav-task1" type="button" role="tab" aria-controls="nav-tab-task1" aria-selected="true">Task 1</button>
+                        <button class="nav-link" id="nav-tab-new" data-bs-toggle="tab" data-bs-target="#nav-new" type="button" role="tab" aria-controls="nav-tab-new" aria-selected="false"><i class="fa fa-circle-plus"></i></button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-task1" role="tabpanel" aria-labelledby="nav-tab-task1" tabindex="0">
+                        <div class="container py-3">
+                            <div class="row pb-3">
+                                <div class="col">
+                                    <label class="control-label" for="new-task1">New task:</label>
+                                    <textarea class="form-control" id="new-task1" name="new-task1" required></textarea>
+                                </div>
+                            </div>
+                            <div class="row" data-provide="datepicker">
+                                <div class="col-auto">
+                                    <label class="control-label" for="s-date1">Start:</label>
+                                    <input class="form-control" id="s-date1" name="s-date1" placeholder="DD/MM/YYYY" type="date"/>
+                                </div>
+                                <div class="col-auto">
+                                    <label class="control-label" for="f-date1">Finish:</label>
+                                    <input class="form-control" id="f-date1" name="f-date1" placeholder="DD/MM/YYYY" type="date"/>
+                                </div>
+                                <div class="col-auto">
+                                    <br/>
+                                    <button class="btn btn-sm btn-outline-danger del-task" id="task1"><i class="fa-solid fa-user-xmark"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-new" role="tabpanel" aria-labelledby="nav-tab-new" tabindex="0">
+                        <div class="container py-3">Click "+" to add new task</div>
+                    </div>
+                </div>
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button class="btn btn-warning " name="submit" type="submit">Set</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(document).ready(() => {
+    $('#new-task1').focus();
+    $('#tab-count').val($('#nav-tab > button').length);
+    $('#nav-tab-new').click(() => {
+        let totalTab = $('#nav-tab > button').length;
+        let newTab = '<button class="nav-link active" id="nav-tab-task' + totalTab +
+            '" data-bs-toggle="tab" data-bs-target="#nav-task' + totalTab +
+            '" type="button" role="tab" aria-controls="nav-tab-task' + totalTab +
+            '" aria-selected="true">Task ' + totalTab + '</button>';
+        let newContent = '<div class="tab-pane fade show active" id="nav-task' + totalTab + '' +
+            '" role="tabpanel" aria-labelledby="nav-tab-task' + totalTab + '" tabindex="0">' +
+            '<div class="container py-3"><div class="row pb-3"><div class="col">' +
+            '<label class="control-label" for="new-task' + totalTab + '">New task:</label>' +
+            '<textarea class="form-control" id="new-task' + totalTab + '" name="new-task' + totalTab + '' +
+            '" required></textarea></div></div><div class="row" data-provide="datepicker"><div class="col-auto">' +
+            '<label class="control-label" for="s-date' + totalTab + '">Start:</label>' +
+            '<input class="form-control" id="s-date' + totalTab + '" name="s-date' + totalTab +
+            '" placeholder="DD/MM/YYYY" type="date"/></div><div class="col-auto"><label class="control-label" ' +
+            'for="f-date' + totalTab + '">Finish:</label><input class="form-control" id="f-date' + totalTab +
+            '" name="f-date' + totalTab + '" placeholder="DD/MM/YYYY" type="date"/></div>' +
+            '<div class="col-auto"><br/><button class="btn btn-sm btn-outline-danger del-task" id="task' + totalTab +
+            '"><i class="fa-solid fa-user-xmark"></i></button></div></div></div></div>';
+        $('button').removeClass('active').attr('aria-selected', 'false');
+        $('#nav-tab-new').before(newTab);
+        $('div.tab-pane').removeClass('show active');
+        $('#nav-new').before(newContent);
+        $('#new-task' + totalTab).focus();
+    });
+    $('button.del-task').click((event) => {
+        event.preventDefault();
+        var task = $('.del-task').attr('id');
+        console.log(task);
+        $('div#nav-tabs').remove('button#nav-tab-'+task+'.active');
+    });
+})
+</script>
+{% endblock %}

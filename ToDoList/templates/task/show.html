@@ -1,0 +1,85 @@
+{% extends 'layouts/base.html' %}
+{% block title %}List of userd{% endblock %}
+{% block content %}
+
+<script>
+    $(document).ready(() => {
+        $('#navbar-content ul li a.active').removeClass('active');
+        $('a[href^="/task/show"]').addClass('active')
+    })
+</script>
+<style>
+    .nav-vertical { text-align: left; }
+    .nav-vertical a { display: block; }
+    .nav-vertical a:hover { background-color: #f8f9fa; }
+    .nav-vertical a.active { background-color: #6c757d; color: white; }
+</style>
+<div class="container py-4">
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-3">
+            <div class="nav flex-sm-column nav-vertical">
+                <a href="/task/create" class="nav-link border-start rounded mb-1">
+                    <span class="badge bg-success">Create 1</span></a>
+                <a href="/task/creates" class="nav-link border-start rounded mb-1">
+                    <span class="badge bg-secondary">Create N</span></a>
+                <a href="/task/edit" class="nav-link todo border-start rounded mb-1">
+                    <span class="badge bg-warning">Edit</span></a>
+                <a href="/task/delete" class="nav-link todo border-start rounded mb-1">
+                    <span class="badge bg-danger">Delete</span></a>
+            </div>
+        </div>
+        <div class="col-xl-10 col-lg-10 col-md-9">
+            <table class="table table-hover table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Task description</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">Finish</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for t in context.task_list %}
+                        <tr>
+                            <td>
+                                <input id="task" class="form-check-input" type="radio" name="" value="{{ t['_id'] }}"/>
+                            </td>
+                            <td scope="row">{{ t['todo'] }}</td>
+                            <td>{{ t['start'] }}</td>
+                            <td>{{ t['finish'] }}</td>
+                            <td>{{ t['status'] }}</td>
+                        </tr>
+                    {% endfor %}
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#"><<--</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">-->></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(() => {
+        // $('.todo').hide();
+    });
+    $('.todo').click((event) => {
+        if ($('#task').val() === "") {
+            event.preventDefault();
+        }
+    });
+    $('#task').click(() => {
+        if ($(this).value !== "") {
+            $('.todo').fadeIn();
+        }
+    });
+
+</script>
+
+{% endblock %}

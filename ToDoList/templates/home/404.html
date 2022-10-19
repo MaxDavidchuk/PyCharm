@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Page not found{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <h1>SORRY,</h1>
+    <h4>page you're looking for not found.</h4>
+    <p><a href="/"><p>Click here</a> return to Main page or return <a href="#" onclick="history.back()">Back</a></p>
+    <img src="{{ url_for('static', filename='img/404.jpg') }}" class="img-fluid rounded mb-4 mb-lg-0"  alt="Logo" />
+</div>
+
+
+{% endblock content%}

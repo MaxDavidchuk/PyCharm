@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% block title %}About{% endblock %}
+{% block content %}
+
+<script>
+    $(document).ready(() => {
+        $('#navbar-content ul li a.active').removeClass('active');
+        $('a[href^="/about"]').addClass('active')
+    })
+</script>
+
+<div class="container">
+    <h3>About Us</h3>
+</div>
+
+{% endblock %}
